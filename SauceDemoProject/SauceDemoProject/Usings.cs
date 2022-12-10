@@ -1,0 +1,11 @@
+global using NUnit.Framework;
+global using SauceDemoProject.Driver;
+global using SauceDemoProject.Pages;
+global using OpenQA.Selenium;
+global using SauceDemoProject.Driver;
+global using System;
+global using System.Collections.Generic;
+global using System.Linq;
+global using System.Text;
+global using System.Threading.Tasks;
+global using OpenQA.Selenium.Support.UI;
