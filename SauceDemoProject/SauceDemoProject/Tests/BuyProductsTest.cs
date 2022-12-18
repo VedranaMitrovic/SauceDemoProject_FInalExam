@@ -1,69 +1,34 @@
-namespace SauceDemoProject
+﻿namespace SauceDemoProject.Tests
 {
-    public class Tests
+    public class BuyProductsTest
     {
         LoginPage loginPage;
         InventoryPage inventoryPage;
-        CartPage cartPage; 
+        CartPage cartPage;
         YourInfoPage yourInfoPage;
-        CheckoutOverviewPage checkoutOverviewPage;    
+        CheckoutOverviewPage checkoutOverviewPage;
         CheckoutCompletePage checkoutCompletePage;
-      
+
         [SetUp]
         public void Setup()
         {
             WebDrivers.Initialize();
-            loginPage= new LoginPage();  
-            inventoryPage= new InventoryPage();
-            cartPage= new CartPage();
+            loginPage = new LoginPage();
+            inventoryPage = new InventoryPage();
+            cartPage = new CartPage();
             yourInfoPage = new YourInfoPage();
-            checkoutOverviewPage= new CheckoutOverviewPage();
-            checkoutCompletePage= new CheckoutCompletePage();
+            checkoutOverviewPage = new CheckoutOverviewPage();
+            checkoutCompletePage = new CheckoutCompletePage();
         }
 
-        [TearDown] 
+        [TearDown]
         public void TearDown()
         {
             WebDrivers.CleanUp();
         }
 
         [Test]
-        public void TC01_0_EnterValidUsernameAndPassword_ShouldLogin()
-        {
-            loginPage.LoginOnPage("standard_user", "secret_sauce");
-            Assert.That("https://www.saucedemo.com/inventory.html", Is.EqualTo(WebDrivers.Instance.Url));
-        }
-
-        [Test]
-        public void TC01_1_EnterValidUsernameAndInvalidPassword_ShouldNotLogin()
-        {
-            loginPage.LoginOnPage("standard_user", "SECRET_SAUCE");
-            Assert.That("Epic sadface: Username and password do not match any user in this service", Is.EqualTo(loginPage.ErrorMessage.Text));
-        }
-
-        [Test]
-        public void TC01_2_EnterInvalidUsernameAndValidPassword_ShouldNotLogin()
-        {
-            loginPage.LoginOnPage("StandardUser", "secret_sauce");
-            Assert.That("Epic sadface: Username and password do not match any user in this service", Is.EqualTo(loginPage.ErrorMessage.Text));
-        }
-
-        [Test]
-        public void TC01_3_EnterInvalidUsernameAndInvalidPassword_ShouldNotLogin()
-        {
-            loginPage.LoginOnPage("user", "pass");
-            Assert.That("Epic sadface: Username and password do not match any user in this service", Is.EqualTo(loginPage.ErrorMessage.Text));
-        }
-
-        [Test]
-        public void TC01_4_ClickLoginWithoutLoginData_ShouldNotLogin()
-        {
-            loginPage.LoginButton.Submit();
-            Assert.That("Epic sadface: Username is required", Is.EqualTo(loginPage.ErrorMessage.Text));
-        }
-
-        [Test]
-        public void TC02_Add3CheapestProductsToCart_3CHeapestProductsShouldBeAddedToCart()
+        public void TC01_Add3CheapestProductsToCart_3CHeapestProductsShouldBeAddedToCart()
         {
             loginPage.LoginOnPage("standard_user", "secret_sauce");
             inventoryPage.SelectSortOption("Price (low to high)");
@@ -74,7 +39,7 @@ namespace SauceDemoProject
         }
 
         [Test]
-        public void TC02_1_AddAndRemove2ProductsFromCart_2ProductsShouldBeAddedAndRemovedFromCart()
+        public void TC02_AddAndRemove2ProductsFromCart_2ProductsShouldBeAddedAndRemovedFromCart()
         {
             loginPage.LoginOnPage("standard_user", "secret_sauce");
             inventoryPage.AddBackpack.Click();
@@ -98,7 +63,7 @@ namespace SauceDemoProject
             yourInfoPage.LastName.SendKeys("Mitrovic");
             yourInfoPage.ZipCode.SendKeys("11000");
             yourInfoPage.ContinueButton.Submit();
-            Assert.That("Item total: $39.98", Is.EqualTo(checkoutOverviewPage.ItemTotal.Text)); 
+            Assert.That("Item total: $39.98", Is.EqualTo(checkoutOverviewPage.ItemTotal.Text));
         }
 
         [Test]
